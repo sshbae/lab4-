@@ -18,12 +18,12 @@ class bstNode:
         return ("bstNode({!r}, {!r}, {!r})".format(self.value, self.left, self.right))
 
 class BinarySearchTree:
-    def __init__(self, comes_before, bst):
-        self.comes_before = comes_before
+    def __init__(self, comes_before(), bst):
+        self.comes_before = comes_before()
         self.bst = bst
     def __eq__(self, other):
         return ((type(other) == BinarySearchTree)
-          and self.comes_before == other.comes_before
+          and self.comes_before() == other.comes_before()
           and self.bst == other.bst)
     def __repr__(self):
         return ("BinarySearchTree({!r}, {!r})".format(self.comes_before, self.bst))
@@ -35,10 +35,10 @@ def is_empty(tree):
 
 def insert(tree, value):
     if tree.bst is None:
-        return BinarySearchTree(tree.comes_before, bstNode(value, None, None))
+        return BinarySearchTree(tree.comes_before(), bstNode(value, None, None))
     if comes_before(value, bst.value):
-        return BinarySearchTree(tree.comes_before, bstNode(tree.bst.value, insert(BinarySearchTree(tree.comes_before, tree.bst.left), value), tree.bst.right))
+        return BinarySearchTree(tree.comes_before(), bstNode(tree.bst.value, insert(BinarySearchTree(tree.comes_before(), tree.bst.left), value), tree.bst.right))
     if comes_before(bst.value, value):
-        return BinarySearchTree(tree.comes_before, bstNode(tree.bst.value, tree.bst.left, insert(BinarySearchTree(tree.comes_before, tree.bst.right), value)))
+        return BinarySearchTree(tree.comes_before(), bstNode(tree.bst.value, tree.bst.left, insert(BinarySearchTree(tree.comes_before(), tree.bst.right), value)))
     return tree
 
